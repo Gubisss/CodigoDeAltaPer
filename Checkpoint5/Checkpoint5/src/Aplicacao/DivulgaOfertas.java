@@ -187,43 +187,54 @@ public class DivulgaOfertas {
 						if (tipoConta == "Fisica") {
 							System.out.println("Insira o CPF a ser pesquisado: ");
 							cpfCnpj = le.next();
+							Cliente clienteEncontrado = fis.consultaCpfCnpj(fis.root, cpfCnpj);
 							if (fis.consultaCpfCnpj(fis.root, cpfCnpj) == null) {
 								System.out.println("Cliente n�o encontrado");
 							} else {
-								System.out.println("Cliente encontrado");
-								jur.consultaCpfCnpj(jur.root, cpfCnpj);
-								
+								 System.out.println("Cliente encontrado: " + clienteEncontrado.toString());
+
 							}
 
-						} else {
+						} else if (tipoConta == "Juridica") {
+							
 							System.out.println("Insira o CNPJ a ser pesquisado: ");
 							cpfCnpj = le.next();
+							Cliente clienteEncontrado = jur.consultaCpfCnpj(jur.root, cpfCnpj);
 							if (jur.consultaCpfCnpj(jur.root, cpfCnpj) == null) {
 								System.out.println("Cliente n�o encontrado");
 							} else {
-								System.out.println("Cliente encontrado");
-								jur.consultaCpfCnpj(jur.root, cpfCnpj);
+						        System.out.println("Cliente encontrado: " + clienteEncontrado.toString());
+
 							}
 						}
 						break;
 					case 2:
 						System.out.println("Insira o numero da conta que deseja atualizar: ");
 						numeroConta = le.nextInt();
+						System.out.println("Insira o novo saldo que deseja atualizar");
+						saldo = le.nextDouble();
+						fis.atualizaSaldo(fis.root, numeroConta, saldo, false);
+						jur.atualizaSaldo(jur.root, numeroConta, saldo, false);
 						break;
 					case 3:
 						System.out.println("Clientes PF: ");
 						System.out.println(fis.apresentaQtd(fis.root));
 						System.out.println("Clientes PJ: ");
-						System.out.println(fis.apresentaQtd(fis.root));
+						System.out.println(jur.apresentaQtd(jur.root));
 						break;
 					case 4:
+				
 						System.out.println("Insira um valor: ");
-						saldo = le.nextInt();
-						System.out.println("Quantidade de pessoas fisicas");
-						fis.listaQtdSaldoAcima(fis.root, saldo);
-						System.out.println("Quantidade de pessoas juridicas");
-						jur.listaQtdSaldoAcima(jur.root, saldo);
-
+						saldo = le.nextDouble();
+						
+						int qtdClientesFis = fis.listaQtdSaldoAcima(fis.root, saldo);
+					    int qtdClientesJur = jur.listaQtdSaldoAcima(jur.root, saldo);
+						
+						System.out.println("Quantidade de clientes com saldo acima de R$"+saldo);
+						System.out.println("Quantidade de pessoas fisicas"  + " " +qtdClientesFis );
+				//		fis.listaQtdSaldoAcima(fis.root,saldo);
+						System.out.println("Quantidade de pessoas juridicas" + " "+ qtdClientesJur);
+				//		jur.listaQtdSaldoAcima(jur.root, saldo);
 						break;
 
 					}

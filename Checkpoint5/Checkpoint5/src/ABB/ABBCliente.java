@@ -25,15 +25,41 @@ public class ABBCliente {
 	}
 
 	public int listaQtdSaldoAcima(ARVORE p, double limite) {
-		int cont = 0;
-		if (p != null) {
-			listaQtdSaldoAcima(p.esq, limite);
-			if (p.dado.getSaldo() < limite)
-				cont++;
-			listaQtdSaldoAcima(p.dir, limite);
-			return cont;
-		}
-		return cont;
+		
+
+		    if (p == null) {
+		        return 0; // Retorna 0 se a árvore estiver vazia
+		    } else {
+		        int cont = 0; // Inicializa a contagem como 0
+		        if (p.dado.getSaldo() > limite) {
+		            cont++; // Incrementa a contagem se o saldo for maior que o limite
+		        }
+		        cont += listaQtdSaldoAcima(p.esq, limite); // Adiciona a contagem da subárvore esquerda
+		        cont += listaQtdSaldoAcima(p.dir, limite); // Adiciona a contagem da subárvore direita
+		        return cont; // Retorna o número total de clientes com saldo acima do limite na árvore
+		    }
+//		}
+
+		//Test1
+//	int qnt = 0 ;
+//		if (p != null) {
+//			qnt = listaQtdSaldoAcima(p.dir, limite);
+//			if (p.dado.getSaldo() > limite) {
+//				qnt++;
+//				qnt = listaQtdSaldoAcima(p.esq, limite);	
+//			}
+//		}
+//		return qnt;
+//JUN
+//		int cont = 0;
+//		if (p != null) {
+//			listaQtdSaldoAcima(p.esq, limite);
+//			if (p.dado.getSaldo() < limite)
+//				cont++;
+//			listaQtdSaldoAcima(p.dir, limite);
+//			return cont;
+//		}
+//		return cont;
 	}
 
 	public ArrayList<Cliente> listaSaldoMinimo(ARVORE p, double minimo, ArrayList<Cliente> l) {
@@ -258,6 +284,7 @@ public class ABBCliente {
 		if (p != null) {
 			if (p.dado.getCpfCnpj().equals(cpfCnpj)) {
 				b = p.dado;
+				return b;
 			
 			}
 				b=consultaCpfCnpj(p.esq, cpfCnpj);
@@ -270,10 +297,13 @@ public class ABBCliente {
 	public int apresentaQtd(ARVORE p) {
 		int cont = 0;
 		if (p != null) {
-			apresentaQtd(p.esq);
+			cont += apresentaQtd(p.esq);
 			cont++;
-			apresentaQtd(p.dir);
-			return cont;
+			cont += apresentaQtd(p.dir);
+//			apresentaQtd(p.esq);
+//			cont++;
+//			apresentaQtd(p.dir);
+//			
 		}
 		return cont;
 
